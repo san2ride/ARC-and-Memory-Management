@@ -16,6 +16,12 @@ class User {
         self.name = name
         print("User \(name) is initialized")
     }
+    
+    private(set) var phones:[Phone] = []
+    func add(phone: Phone) {
+        phones.append(phone)
+        phone.owner = self
+    }
     deinit {
         print("User \(name) is being deallocated")
     }
@@ -23,7 +29,7 @@ class User {
 
 class Phone {
     let model: String
-    var owner: User?
+    weak var owner: User?
     
     init(model: String) {
         self.model = model
@@ -38,4 +44,5 @@ class Phone {
 do {
   let user1 = User(name: "John")
   let iPhone = Phone(model: "iPhone 6s Plus")
+  user1.add(phone: iPhone)
 }
